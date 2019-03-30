@@ -1,0 +1,23 @@
+label {
+  display: inline-block;
+  width: 10rem;
+  margin: .5em 0;
+  color: #607D8B;
+  font-weight: bold;
+}
+
+select[multiple] {
+  background:none;
+  width:auto;
+  height:auto;
+  padding:0;
+  margin:0;
+  border-width: 1px;
+	border-color: #aaa;
+	font-size: .85rem;
+	
+}
+option {
+	padding: .5rem;
+	width: 10rem;
+}

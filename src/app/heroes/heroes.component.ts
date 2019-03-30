@@ -1,39 +1,45 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Hero } from '../hero';
-import { HeroService } from '../hero.service';
+import { Hero } from '../models/hero';
+import { HeroService } from '../services/hero.service';
+import { BaseList, GetCollection, AddItem, DeleteItem } from '../base-list/base-list.component';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-heroes',
-  templateUrl: './heroes.component.html',
-  styleUrls: ['./heroes.component.css']
+	selector: 'app-heroes',
+  templateUrl: '../base-list/base-list.component.html',
+  styleUrls: ['../base-list/base-list.component.scss']
 })
-export class HeroesComponent implements OnInit {
-  heroes: Hero[];
+export class HeroesComponent extends BaseList<Hero> implements GetCollection, AddItem, DeleteItem<Hero> {
+	labels = {
+		singular: 'Hero',
+		plural: 'My Heroes',
+	}
+  constructor(private heroService: HeroService) {
+		super();
+	}
 
-  constructor(private heroService: HeroService) { }
-
-  ngOnInit() {
-    this.getHeroes();
-  }
-
-  getHeroes(): void {
-    this.heroService.getHeroes()
-    .subscribe(heroes => this.heroes = heroes);
+  getCollection(): void {
+		this.heroService.getHeroes().pipe(
+			takeUntil(this.unsubscribe$)
+		).subscribe(heroes => this.collection = heroes);
   }
 
   add(name: string): void {
-    name = name.trim();
-    if (!name) { return; }
-    this.heroService.addHero({ name } as Hero)
-      .subscribe(hero => {
-        this.heroes.push(hero);
+		super.add(name);
+		this.heroService.addHero({ name } as Hero).pipe(
+			takeUntil(this.unsubscribe$)
+		).subscribe(hero => {
+        this.collection.push(hero);
       });
   }
 
   delete(hero: Hero): void {
-    this.heroes = this.heroes.filter(h => h !== hero);
-    this.heroService.deleteHero(hero).subscribe();
+		super.delete(hero);
+    this.collection = this.collection.filter(i => i !== hero);
+    this.heroService.deleteHero(hero).pipe(
+			takeUntil(this.unsubscribe$)
+		).subscribe();
   }
 
 }

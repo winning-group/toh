@@ -1,0 +1,9 @@
+<app-hero-detail (heroFetched)="onHeroFetched($event)" [extras]="selected">
+	<div>
+		<label>select {{heroName}} nemesis: 
+		<select *ngIf="nemesis" multiple [(ngModel)]="selectedNemesis">
+				<option *ngFor="let n of nemesis" [ngValue]="n.id">{{n.name}}</option>
+			</select>
+		</label>
+		</div>
+</app-hero-detail>
