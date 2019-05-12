@@ -23,4 +23,9 @@ export class VillainService {
     return of(VILLAINS); //returns an Observable that emits a single value, the array of mock villains.
   }
 
+  getVillain(id: number): Observable<Villain> {
+    this.messageService.add(`VillainService: fetched villain id=${id}`);
+    return of(VILLAINS.find(villain => villain.id === id));
+  }
+
 }

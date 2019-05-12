@@ -11,8 +11,6 @@ import { VillainService } from '../villain.service';
 })
 
 export class VillainsComponent implements OnInit {
-  selectedVillain: Villain;
-
   //villains = VILLAINS;
   villains: Villain[];
 
@@ -20,10 +18,6 @@ export class VillainsComponent implements OnInit {
 
   ngOnInit() {
     this.getVillains();
-  }
-
-  onSelect(villain: Villain): void {
-    this.selectedVillain = villain;
   }
 
   getVillains(): void {
