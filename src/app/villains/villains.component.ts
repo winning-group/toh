@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Villain } from '../villain';
-import { VILLAINS } from '../mock-villains';
-import { VillainService } from '../villain.service';
+import { Hero } from '../hero';
+import { HeroService } from '../hero.service';
 
 @Component({
   selector: 'app-villains',
@@ -11,34 +10,31 @@ import { VillainService } from '../villain.service';
 })
 
 export class VillainsComponent implements OnInit {
-  //villains = VILLAINS;
-  villains: Villain[];
+  heroes: Hero[];
 
-  constructor(private villainService: VillainService) { }
+  constructor(private heroService: HeroService) { }
 
   ngOnInit() {
-    this.getVillains();
+    this.getHeroes();
   }
 
-  getVillains(): void {
-    //this.villains = this.villainService.getVillains();
-    this.villainService.getVillains()
-     .subscribe(villains => this.villains = villains);
+  getHeroes(): void {
+    this.heroService.getHeroes()
+    .subscribe(heroes => this.heroes = heroes);
   }
 
-  /*
-  add(name: string): void {
+  add(name: string, type: string): void {
     name = name.trim();
+    type = type;
     if (!name) { return; }
-    this.villainService.addVillain({ name } as Villain)
-      .subscribe(villian => {
-        this.villains.push(villian);
+    this.heroService.addHero({ name, type } as Hero)
+      .subscribe(hero => {
+        this.heroes.push(hero);
       });
   }
 
-  delete(villain: Villain): void {
-    this.villains = this.villains.filter(h => h !== villain);
-    this.villainService.deleteVillain(villain).subscribe();
+  delete(hero: Hero): void {
+    this.heroes = this.heroes.filter(h => h !== hero);
+    this.heroService.deleteHero(hero).subscribe();
   }
-  */
 }

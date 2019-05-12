@@ -10,12 +10,11 @@ import { AppRoutingModule }     from './app-routing.module';
 
 import { AppComponent }         from './app.component';
 import { DashboardComponent }   from './dashboard/dashboard.component';
-import { HeroDetailComponent }  from './hero-detail/hero-detail.component';
+import { DetailComponent }  from './detail/detail.component';
 import { HeroesComponent }      from './heroes/heroes.component';
 import { HeroSearchComponent }  from './hero-search/hero-search.component';
 import { MessagesComponent }    from './messages/messages.component';
 import { VillainsComponent } from './villains/villains.component';
-import { VillainDetailComponent } from './villain-detail/villain-detail.component';
 
 @NgModule({
   imports: [
@@ -35,11 +34,10 @@ import { VillainDetailComponent } from './villain-detail/villain-detail.componen
     AppComponent,
     DashboardComponent,
     HeroesComponent,
-    HeroDetailComponent,
+    DetailComponent,
     MessagesComponent,
     HeroSearchComponent,
-    VillainsComponent,
-    VillainDetailComponent
+    VillainsComponent
   ],
   bootstrap: [ AppComponent ]
 })

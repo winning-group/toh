@@ -6,18 +6,22 @@
     <input #villainName />
   </label>
   <!-- (click) passes input value to add() and then clears the input -->
-  <button (click)="add(villainName.value); villainName.value=''">
+  <button (click)="add(villainName.value, 'villain'); villainName.value=''">
     add
   </button>
 </div>
 
 <!-- List of villains -->
 <ul class="villains">
-  <li *ngFor="let villain of villains">
-    <a routerLink="/detail-villain/{{villain.id}}">
-      <span class="badge">{{villain.id}}</span> {{villain.name}}
-    </a>
-    <button class="delete" title="delete villain"
-      (click)="delete(villain)">x</button>
-  </li>
+  <ng-container *ngFor="let hero of heroes">
+    <ng-container *ngIf="hero.type==='villain'">
+      <li>
+        <a routerLink="/detail/{{hero.id}}">
+          <span class="badge">{{hero.id}}</span> {{hero.name}}
+        </a>
+        <button class="delete" title="delete villain"
+          (click)="delete(hero)">x</button>
+      </li>
+    </ng-container>
+  </ng-container>
 </ul>
