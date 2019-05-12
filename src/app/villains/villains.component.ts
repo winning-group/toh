@@ -11,10 +11,10 @@ import { VillainService } from '../villain.service';
 })
 
 export class VillainsComponent implements OnInit {
+  selectedVillain: Villain;
+
   //villains = VILLAINS;
   villains: Villain[];
-
-  selectedVillain: Villain;
 
   constructor(private villainService: VillainService) { }
 
@@ -27,9 +27,9 @@ export class VillainsComponent implements OnInit {
   }
 
   getVillains(): void {
-    // this.villainService.getVillains()
-    // .subscribe(villains => this.villains = villains);
-    this.villains = this.villainService.getVillains();
+    //this.villains = this.villainService.getVillains();
+    this.villainService.getVillains()
+     .subscribe(villains => this.villains = villains);
   }
 
   /*
