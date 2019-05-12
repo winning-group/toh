@@ -12,6 +12,7 @@ import { HeroService }  from '../hero.service';
 })
 export class DetailComponent implements OnInit {
   @Input() hero: Hero;
+  heroes: Hero[];
 
   constructor(
     private route: ActivatedRoute,
@@ -21,6 +22,7 @@ export class DetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.getHero();
+    this.getHeroes();
   }
 
   getHero(): void {
@@ -29,11 +31,16 @@ export class DetailComponent implements OnInit {
       .subscribe(hero => this.hero = hero);
   }
 
+  getHeroes(): void {
+    this.heroService.getHeroes()
+    .subscribe(heroes => this.heroes = heroes);
+  }
+
   goBack(): void {
     this.location.back();
   }
 
- save(): void {
+  save(): void {
     this.heroService.updateHero(this.hero)
       .subscribe(() => this.goBack());
   }

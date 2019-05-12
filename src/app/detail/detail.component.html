@@ -1,12 +1,26 @@
 <div *ngIf="hero">
   <h2>{{hero.name | uppercase}} Details</h2>
-  <div><span>type: </span>{{hero.type}}</div>
   <div><span>id: </span>{{hero.id}}</div>
+  <div><span>type: </span>{{hero.type}}</div>
+
   <div>
     <label>name:
       <input [(ngModel)]="hero.name" placeholder="name"/>
     </label>
   </div>
+
+  <div *ngIf="hero.type==='hero'">
+    <span>nemesis: </span><br />
+    <select [(ngModel)]="hero.nemesisID" id="nemesis" name="nemesis">
+      <!-- <option selected [value]="null">Select</option> -->
+      <ng-container *ngFor="let hero of heroes">
+        <ng-container *ngIf="hero.type==='villain'">
+          <option [value]="hero.id">{{hero.name}}</option>
+        </ng-container>
+      </ng-container>
+    </select>
+  </div>
+
   <button (click)="goBack()">go back</button>
   <button (click)="save()">save</button>
 </div>
