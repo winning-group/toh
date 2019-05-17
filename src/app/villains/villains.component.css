@@ -78,3 +78,8 @@ button.delete {
     background-color: #1f1f1f !important;
     color: white;
 }
+
+.validation-error {
+    color: red;
+    font-weight: 700;
+}

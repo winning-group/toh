@@ -13,6 +13,7 @@ export class VillainsComponent implements OnInit {
 
   private destroyed$: ReplaySubject<boolean> = new ReplaySubject(1);
   private villainsList: Villain[];
+  private isNotEmpty = true;
 
   constructor(public villainsService: VillainsService) { }
 
@@ -36,7 +37,11 @@ export class VillainsComponent implements OnInit {
    */
   addVillain(name: string) {
     name = name.trim();
-    if (!name) { return; }
+    if (!name) { 
+      this.isNotEmpty = false;
+      return; 
+    }
+    this.isNotEmpty = true;
     this.villainsService.addVillain({ name } as Villain)
       .pipe(takeUntil(this.destroyed$))
       .subscribe(res => {

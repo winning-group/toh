@@ -7,11 +7,12 @@
   <button (click)="addVillain(villainName.value); villainName.value=''">
     Add
   </button>
+  <p [hidden]="isNotEmpty" class="validation-error">The name input should not be empty!</p>
 </div>
 
 <ul class="villains">
   <li *ngFor="let villain of villainsList">
-    <a routerLink="/detail/{{villain.id}}">
+    <a routerLink="/detail-villain/{{villain.id}}">
       <span class="badge">{{villain.id}}</span> {{villain.name}}
     </a>
     <button class="delete" title="delete villain" (click)="deleteVillain(villain.id)">x</button>
