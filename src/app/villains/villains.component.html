@@ -18,3 +18,4 @@
     <button class="delete" title="delete villain" (click)="deleteVillain(villain.id)">x</button>
   </li>
 </ul>
+<p [hidden]="isNotAssigned" class="validation-error">Deassign the villain from all heros nemesis first</p>

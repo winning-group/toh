@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { VillainsService } from '../shared-services/villains.service';
 import { Villain } from '../models/villains';
-import { takeUntil } from 'rxjs/operators';
-import { ReplaySubject } from 'rxjs';
+import { takeUntil, filter, mergeMap, map, flatMap, switchMap } from 'rxjs/operators';
+import { ReplaySubject, forkJoin } from 'rxjs';
+import { HeroService } from '../shared-services/hero.service';
 
 @Component({
   selector: 'app-villains',
@@ -14,8 +15,12 @@ export class VillainsComponent implements OnInit {
   private destroyed$: ReplaySubject<boolean> = new ReplaySubject(1);
   private villainsList: Villain[];
   private isNotEmpty = true;
+  private isNotAssigned = true;
 
-  constructor(public villainsService: VillainsService) { }
+  constructor(
+    public heroService: HeroService,
+    public villainsService: VillainsService
+  ) { }
 
   ngOnInit() {
     this.getVillainsList();
@@ -37,9 +42,9 @@ export class VillainsComponent implements OnInit {
    */
   addVillain(name: string) {
     name = name.trim();
-    if (!name) { 
+    if (!name) {
       this.isNotEmpty = false;
-      return; 
+      return;
     }
     this.isNotEmpty = true;
     this.villainsService.addVillain({ name } as Villain)
@@ -50,13 +55,25 @@ export class VillainsComponent implements OnInit {
   }
 
   /**
-   * Remove the villain with the specified ID
+   * Remove the villain with the specified ID, if he
+   * is not assigned to a hero
    * @param id id of the villain to remove
    */
   deleteVillain(id: number) {
-    this.villainsService.deleteVillain(id).subscribe((res) => {
-      this.villainsList = this.villainsList.filter(villain => villain.id !== id);
-    });
+
+    this.heroService.getHeroes().subscribe(
+      (heros) => {
+        if (heros.filter((value) => value.nemesis.id === id).length > 0) {
+          this.isNotAssigned = false;
+        } else {
+          this.isNotAssigned = true;
+          this.villainsService.deleteVillain(id)
+            .subscribe(() => {
+              this.villainsList = this.villainsList.filter(villain => villain.id !== id);
+            });
+        }
+      }
+    )
   }
 
   /**
