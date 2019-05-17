@@ -1,0 +1,80 @@
+/* villainsComponent's private CSS styles
+Just a copy past from heroes style, that I changed a bit (colors) to show that it
+is a seperated CSS (And that villains can have a different styling).
+Style that is shared on other components or on the whole application should be 
+add on a higher lvl or in the app style.css (to avoid duplicated CSS)
+*/
+
+.villains {
+    margin: 0 0 2em 0;
+    list-style-type: none;
+    padding: 0;
+    width: 15em;
+}
+
+.villains li {
+    position: relative;
+    cursor: pointer;
+    background-color: rgb(136, 0, 0);
+    margin: .5em;
+    padding: .3em 0;
+    height: 1.6em;
+    border-radius: 4px;
+}
+
+.villains li:hover {
+    color: #607D8B;
+    background-color: rgb(255, 0, 0);
+    left: .1em;
+}
+
+.villains a {
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+    position: relative;
+    display: block;
+    width: 250px;
+}
+
+.villains a:hover {
+    color: rgb(255, 255, 255);
+}
+
+.villains .badge {
+    display: inline-block;
+    font-size: small;
+    color: rgb(235, 235, 235);
+    padding: 0.8em 0.7em 0 0.7em;
+    background-color: #1f1f1f;
+    line-height: 1em;
+    position: relative;
+    left: -1px;
+    top: -4px;
+    height: 1.8em;
+    min-width: 16px;
+    text-align: right;
+    margin-right: .8em;
+    border-radius: 4px 0 0 4px;
+}
+
+button {
+    background-color: #1f1f1f;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    cursor: hand;
+    font-family: Arial;
+}
+
+button:hover {
+    background-color: #cfd8dc;
+}
+
+button.delete {
+    position: relative;
+    left: 192px;
+    top: -34px;
+    background-color: #1f1f1f !important;
+    color: white;
+}
