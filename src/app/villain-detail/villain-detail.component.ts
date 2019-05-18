@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { VillainsService } from '../shared-services/villains.service';
 import { ActivatedRoute } from '@angular/router';
 import { Villain } from '../models/villains';
@@ -15,7 +15,7 @@ import { Location } from '@angular/common';
   templateUrl: './villain-detail.component.html',
   styleUrls: ['./villain-detail.component.css']
 })
-export class VillainDetailComponent implements OnInit {
+export class VillainDetailComponent implements OnInit, OnDestroy {
 
   private villainId: number;
   private villain: Villain;

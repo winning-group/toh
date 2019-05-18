@@ -7,6 +7,6 @@
     </label>
   </div>
   <button (click)="goBack()">go back</button>
-  <button (click)="saveVillain(villain)">save</button>
+  <button id="save-villain" [disabled]="villain.name === ''" (click)="saveVillain(villain)">save</button>
 </div>
 

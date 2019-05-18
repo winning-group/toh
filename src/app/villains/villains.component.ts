@@ -61,13 +61,15 @@ export class VillainsComponent implements OnInit {
    */
   deleteVillain(id: number) {
 
-    this.heroService.getHeroes().subscribe(
+    this.heroService.getHeroes().
+    pipe(takeUntil(this.destroyed$))
+    .subscribe(
       (heros) => {
         if (heros.filter((value) => value.nemesis.id === id).length > 0) {
           this.isNotAssigned = false;
         } else {
           this.isNotAssigned = true;
-          this.villainsService.deleteVillain(id)
+          this.villainsService.deleteVillain(id).pipe(takeUntil(this.destroyed$))
             .subscribe(() => {
               this.villainsList = this.villainsList.filter(villain => villain.id !== id);
             });
