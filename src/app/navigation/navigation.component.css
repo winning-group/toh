@@ -1,6 +1,13 @@
-/*  */
+/* 
+Display burger icon only when screen size is 600px max
+Hide the horizontals links. 
+*/
 
 @media screen and (max-width: 600px) {
+    .navigation .burger-icon:hover {
+        background-color: rgba(240, 248, 255, 0)
+     }
+
     .navigation a:not(:first-child) {
         display: none;
     }
@@ -11,33 +18,45 @@
     }
 }
 
+/*
+Display link vertically, only when screen size is 600px max
+*/
+
 @media screen and (max-width: 600px) {
     .navigation.responsive {
+        padding: 0;
         position: relative;
     }
     .navigation.responsive .burger-icon {
         position: absolute;
         right: 0;
-        top: 0;
+        top: 15px;
     }
     .navigation.responsive a {
         float: none;
         display: block;
         text-align: left;
     }
+
 }
 
 .navigation {
-    background-color: rgb(209, 221, 223);
+    background-color: #243c41;
     padding: 15px 0;
 }
 
 .navigation a {
     padding: 15px;
+    color: white;
+    text-decoration: none;
 }
 
 .navigation a:hover {
-    background-color: rgb(185, 185, 185);
+    background-color: #55767c;
+}
+
+.navigation a:first-child {
+    background-color: rgba(185, 185, 185, 0);
 }
 
 .burger-icon {

@@ -13,7 +13,7 @@
     <div>
       <h3>Nemesis : </h3>
       <label for="villain-select">
-        <select formControlName="nemesis" id="villain-select" [compareWith]="compare">
+        <select class="select-nemesis" formControlName="nemesis" id="villain-select" [compareWith]="compare">
           <option value="none">No nemesis</option>
           <option *ngFor="let nemesis of villainsList" [ngValue]="nemesis">{{nemesis.name | uppercase}}</option>
         </select>
