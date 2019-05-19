@@ -29,20 +29,6 @@ export class VillainsService {
       );
   }
 
-  /** GET Villain by id. Return `undefined` when id not found */
-  getVillainNo404<Data>(id: number): Observable<Villain> {
-    const url = `${this.VillainsUrl}/?id=${id}`;
-    return this.http.get<Villain[]>(url)
-      .pipe(
-        map(Villains => Villains[0]), // returns a {0|1} element array
-        tap(h => {
-          const outcome = h ? `fetched` : `did not find`;
-          this.log(`${outcome} Villain id=${id}`);
-        }),
-        catchError(this.handleError<Villain>(`getVillain id=${id}`))
-      );
-  }
-
   /** GET Villain by id. Will 404 if id not found */
   getVillain(id: number): Observable<Villain> {
     const url = `${this.VillainsUrl}/${id}`;

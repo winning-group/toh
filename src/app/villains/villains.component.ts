@@ -5,6 +5,9 @@ import { takeUntil, filter, mergeMap, map, flatMap, switchMap } from 'rxjs/opera
 import { ReplaySubject, forkJoin } from 'rxjs';
 import { HeroService } from '../shared-services/hero.service';
 
+/**
+ * Component VillainsComponent : display the list of villains
+ */
 @Component({
   selector: 'app-villains',
   templateUrl: './villains.component.html',
@@ -60,7 +63,6 @@ export class VillainsComponent implements OnInit {
    * @param id id of the villain to remove
    */
   deleteVillain(id: number) {
-
     this.heroService.getHeroes().
     pipe(takeUntil(this.destroyed$))
     .subscribe(
