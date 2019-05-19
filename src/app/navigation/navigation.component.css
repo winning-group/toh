@@ -1,0 +1,45 @@
+/*  */
+
+@media screen and (max-width: 600px) {
+    .navigation a:not(:first-child) {
+        display: none;
+    }
+    .navigation a.burger-icon {
+        display: block;
+        float: right;
+        padding: 0 20px;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .navigation.responsive {
+        position: relative;
+    }
+    .navigation.responsive .burger-icon {
+        position: absolute;
+        right: 0;
+        top: 0;
+    }
+    .navigation.responsive a {
+        float: none;
+        display: block;
+        text-align: left;
+    }
+}
+
+.navigation {
+    background-color: rgb(209, 221, 223);
+    padding: 15px 0;
+}
+
+.navigation a {
+    padding: 15px;
+}
+
+.navigation a:hover {
+    background-color: rgb(185, 185, 185);
+}
+
+.burger-icon {
+    display: none;
+}

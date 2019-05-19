@@ -14,3 +14,4 @@ This repository is a point in time copy of Angular's famous [Tour of Heroes](htt
 Observables : I worked with manual subscriptions because that's how the base TOH application was working. However, I think it's better to use the async pipe when possible, as this is managing automatically subscriptions/unsubscriptions, thus avoiding potential mistakes.
 Reactive form : As I had to add a new field (nemesis) on the hero-detail page, I implemented a reactive form.
 Unit tests : I added few unit tests on the features I worked on.
+CSS: I did all styling in CSS, but I generally prefere to use a preprocessor scripting language like SASS, to save time and have more maintainable CSS. As well, using bootsrap or Angular material can save a lot of time here.

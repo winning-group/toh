@@ -1,0 +1,9 @@
+<nav [ngClass]="{'navigation':true, 'responsive':!hide}">
+  <a>{{title}}</a>
+  <a routerLink="/dashboard">Dashboard</a>
+  <a routerLink="/heroes">Heroes</a>
+  <a routerLink="/villains">Villains</a>
+  <a class="burger-icon" (click)="hide = !hide">
+    <i class="fa fa-bars"></i>
+  </a>
+</nav>
