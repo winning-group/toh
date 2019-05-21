@@ -1,11 +1,11 @@
 'use strict'; // necessary for es6 output in node
 
-import { browser, element, by, ElementFinder, ElementArrayFinder } from 'protractor';
+import { browser, by, element, ElementArrayFinder, ElementFinder } from 'protractor';
 import { promise } from 'selenium-webdriver';
 
 const expectedH1 = 'Tour of Heroes';
 const expectedTitle = `${expectedH1}`;
-const targetHero = { id: 15, name: 'Magneta' };
+const targetHero = {id: 15, name: 'Magneta'};
 const targetHeroDashboardIndex = 3;
 const nameSuffix = 'X';
 const newHeroName = targetHero.name + nameSuffix;
@@ -26,9 +26,9 @@ class Hero {
 
   // Hero from hero list <li> element.
   static async fromLi(li: ElementFinder): Promise<Hero> {
-      let stringsFromA = await li.all(by.css('a')).getText();
-      let strings = stringsFromA[0].split(' ');
-      return { id: +strings[0], name: strings[1] };
+    let stringsFromA = await li.all(by.css('a')).getText();
+    let strings = stringsFromA[0].split(' ');
+    return {id: +strings[0], name: strings[1]};
   }
 
   // Hero id and name from the given detail element.
@@ -38,8 +38,8 @@ class Hero {
     // Get name from the h2
     let _name = await detail.element(by.css('h2')).getText();
     return {
-        id: +_id.substr(_id.indexOf(' ') + 1),
-        name: _name.substr(0, _name.lastIndexOf(' '))
+      id: +_id.substr(_id.indexOf(' ') + 1),
+      name: _name.substr(0, _name.lastIndexOf(' ')),
     };
   }
 }
@@ -59,14 +59,14 @@ describe('Tutorial part 6', () => {
       topHeroes: element.all(by.css('app-root app-dashboard > div h4')),
 
       appHeroesHref: navElts.get(1),
-      appHeroes: element(by.css('app-root app-heroes')),
-      allHeroes: element.all(by.css('app-root app-heroes li')),
-      selectedHeroSubview: element(by.css('app-root app-heroes > div:last-child')),
+      appHeroes: element(by.css('app-root app-hero-list')),
+      allHeroes: element.all(by.css('app-root app-hero-list li')),
+      selectedHeroSubview: element(by.css('app-root app-hero-list > div:last-child')),
 
       heroDetail: element(by.css('app-root app-hero-detail > div')),
 
       searchBox: element(by.css('#search-box')),
-      searchResults: element.all(by.css('.search-result li'))
+      searchResults: element.all(by.css('.search-result li')),
     };
   }
 
@@ -77,7 +77,7 @@ describe('Tutorial part 6', () => {
     });
 
     it(`has h1 '${expectedH1}'`, () => {
-        expectHeading(1, expectedH1);
+      expectHeading(1, expectedH1);
     });
 
     const expectedViewNames = ['Dashboard', 'Heroes'];
@@ -97,7 +97,7 @@ describe('Tutorial part 6', () => {
 
     beforeAll(() => browser.get(''));
 
-    it('has top heroes', () => {
+    it('has top hero-list', () => {
       let page = getPageElts();
       expect(page.topHeroes.count()).toEqual(4);
     });
@@ -136,7 +136,7 @@ describe('Tutorial part 6', () => {
       getPageElts().appHeroesHref.click();
       let page = getPageElts();
       expect(page.appHeroes.isPresent()).toBeTruthy();
-      expect(page.allHeroes.count()).toEqual(10, 'number of heroes');
+      expect(page.allHeroes.count()).toEqual(10, 'number of hero-list');
     });
 
     it('can route to hero details', async () => {
@@ -165,10 +165,10 @@ describe('Tutorial part 6', () => {
 
       const page = getPageElts();
       expect(page.appHeroes.isPresent()).toBeTruthy();
-      expect(page.allHeroes.count()).toEqual(9, 'number of heroes');
+      expect(page.allHeroes.count()).toEqual(9, 'number of hero-list');
       const heroesAfter = await toHeroArray(page.allHeroes);
       // console.log(await Hero.fromLi(page.allHeroes[0]));
-      const expectedHeroes =  heroesBefore.filter(h => h.name !== newHeroName);
+      const expectedHeroes = heroesBefore.filter(h => h.name !== newHeroName);
       expect(heroesAfter).toEqual(expectedHeroes);
       // expect(page.selectedHeroSubview.isPresent()).toBeFalsy();
     });
@@ -183,9 +183,9 @@ describe('Tutorial part 6', () => {
 
       let page = getPageElts();
       let heroesAfter = await toHeroArray(page.allHeroes);
-      expect(heroesAfter.length).toEqual(numHeroes + 1, 'number of heroes');
+      expect(heroesAfter.length).toEqual(numHeroes + 1, 'number of hero-list');
 
-      expect(heroesAfter.slice(0, numHeroes)).toEqual(heroesBefore, 'Old heroes are still there');
+      expect(heroesAfter.slice(0, numHeroes)).toEqual(heroesBefore, 'Old hero-list are still there');
 
       const maxId = heroesBefore[heroesBefore.length - 1].id;
       expect(heroesAfter[numHeroes]).toEqual({id: maxId + 1, name: newHeroName});
@@ -194,19 +194,19 @@ describe('Tutorial part 6', () => {
     it('displays correctly styled buttons', async () => {
       element.all(by.buttonText('x')).then(buttons => {
         for (const button of buttons) {
-          // Inherited styles from styles.css
+          // Inherited styles from styles.scss
           expect(button.getCssValue('font-family')).toBe('Arial');
           expect(button.getCssValue('border')).toContain('none');
           expect(button.getCssValue('padding')).toBe('5px 10px');
           expect(button.getCssValue('border-radius')).toBe('4px');
-          // Styles defined in heroes.component.css
+          // Styles defined in hero-list.component.css
           expect(button.getCssValue('left')).toBe('194px');
           expect(button.getCssValue('top')).toBe('-32px');
         }
       });
 
       const addButton = element(by.buttonText('add'));
-      // Inherited styles from styles.css
+      // Inherited styles from styles.scss
       expect(addButton.getCssValue('font-family')).toBe('Arial');
       expect(addButton.getCssValue('border')).toContain('none');
       expect(addButton.getCssValue('padding')).toBe('5px 10px');
@@ -285,9 +285,9 @@ function addToHeroName(text: string): promise.Promise<void> {
 }
 
 function expectHeading(hLevel: number, expectedText: string): void {
-    let hTag = `h${hLevel}`;
-    let hText = element(by.css(hTag)).getText();
-    expect(hText).toEqual(expectedText, hTag);
+  let hTag = `h${hLevel}`;
+  let hText = element(by.css(hTag)).getText();
+  expect(hText).toEqual(expectedText, hTag);
 };
 
 function getHeroAEltById(id: number): ElementFinder {
