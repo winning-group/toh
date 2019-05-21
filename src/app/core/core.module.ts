@@ -6,6 +6,7 @@ import {
   HeroService,
   InMemoryDataService,
   MessageService,
+  VillainService,
 } from './services';
 
 @NgModule({
@@ -16,8 +17,9 @@ import {
     ),
   ],
   providers: [
-    MessageService,
     HeroService,
+    MessageService,
+    VillainService,
   ],
 })
 export class CoreModule {

@@ -3,7 +3,6 @@ import {
   HttpClient,
   HttpHeaders,
 } from '@angular/common/http';
-
 import {
   Observable,
   of,
@@ -14,8 +13,8 @@ import {
   tap,
 } from 'rxjs/operators';
 
-import { Hero } from 'core/models';
 import { MessageService } from 'core/services/message/message.service';
+import { Hero } from 'shared/models';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' }),

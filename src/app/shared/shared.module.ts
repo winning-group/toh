@@ -7,12 +7,14 @@ import { RouterModule } from '@angular/router';
 import {
   HeroSearchComponent,
   MessagesComponent,
+  NavigationComponent,
 } from './components';
 
 @NgModule({
   declarations: [
     HeroSearchComponent,
     MessagesComponent,
+    NavigationComponent,
   ],
   exports: [
     CommonModule,
@@ -20,6 +22,7 @@ import {
     HttpClientModule,
     HeroSearchComponent,
     MessagesComponent,
+    NavigationComponent,
   ],
   imports: [
     CommonModule,

@@ -2,18 +2,21 @@ import {
   Component,
   OnInit,
 } from '@angular/core';
+import { takeUntil } from 'rxjs/operators';
 
-import { Hero } from 'core/models';
 import { HeroService } from 'core/services';
+import { Hero } from 'shared/models';
+import { Unsubscribe } from 'shared/modules';
 
 @Component({
   selector: 'app-heroes',
   templateUrl: './heroes.component.html',
 })
-export class HeroesComponent implements OnInit {
+export class HeroesComponent extends Unsubscribe implements OnInit {
   heroes: Hero[];
 
   constructor(private heroService: HeroService) {
+    super();
   }
 
   ngOnInit() {
@@ -22,6 +25,7 @@ export class HeroesComponent implements OnInit {
 
   getHeroes(): void {
     this.heroService.getHeroes()
+      .pipe(takeUntil(this.unsubscribe))
       .subscribe(heroes => this.heroes = heroes);
   }
 
@@ -31,6 +35,7 @@ export class HeroesComponent implements OnInit {
       return;
     }
     this.heroService.addHero({ name } as Hero)
+      .pipe(takeUntil(this.unsubscribe))
       .subscribe(hero => {
         this.heroes.push(hero);
       });

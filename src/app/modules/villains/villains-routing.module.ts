@@ -4,11 +4,11 @@ import {
   Routes,
 } from '@angular/router';
 import { VillainsComponent } from './villains.component';
+import { VillainDetailComponent } from './villain-detail/villain-detail.component';
 
 const routes: Routes = [
-  {
-    path: '', component: VillainsComponent,
-  },
+  { path: '', component: VillainsComponent },
+  { path: ':id', component: VillainDetailComponent },
 ];
 
 @NgModule({

@@ -1,14 +1,14 @@
-import { Villain } from 'core/models';
+import { Villain } from 'shared/models';
 
 export const VILLAINS: Villain[] = [
-  { id: 11, name: 'Mr. Nice' },
-  { id: 12, name: 'Narco' },
-  { id: 13, name: 'Bombasto' },
-  { id: 14, name: 'Celeritas' },
-  { id: 15, name: 'Magneta' },
-  { id: 16, name: 'RubberMan' },
-  { id: 17, name: 'Dynama' },
-  { id: 18, name: 'Dr IQ' },
-  { id: 19, name: 'Magma' },
-  { id: 20, name: 'Tornado' },
+  { id: 11, name: 'Magneto' },
+  { id: 12, name: 'Ultron' },
+  { id: 13, name: 'Thanos' },
+  { id: 14, name: 'Venom' },
+  { id: 15, name: 'Dormammu' },
+  { id: 16, name: 'Doctor Doom' },
+  { id: 17, name: 'Red Skull' },
+  { id: 18, name: 'Loki' },
+  { id: 19, name: 'Apocalypse' },
+  { id: 20, name: 'Carnage' },
 ];

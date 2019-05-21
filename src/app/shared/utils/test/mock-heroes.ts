@@ -1,14 +1,14 @@
-import { Hero } from 'core/models';
+import { Hero } from 'shared/models';
 
 export const HEROES: Hero[] = [
-  { id: 11, name: 'Mr. Nice' },
-  { id: 12, name: 'Narco' },
-  { id: 13, name: 'Bombasto' },
-  { id: 14, name: 'Celeritas' },
-  { id: 15, name: 'Magneta' },
-  { id: 16, name: 'RubberMan' },
-  { id: 17, name: 'Dynama' },
-  { id: 18, name: 'Dr IQ' },
-  { id: 19, name: 'Magma' },
-  { id: 20, name: 'Tornado' },
+  { id: 11, name: 'Iron Man', nemesis: null },
+  { id: 12, name: 'Wolverine', nemesis: null },
+  { id: 13, name: 'Spider-Man', nemesis: null },
+  { id: 14, name: 'Daredevil', nemesis: null },
+  { id: 15, name: 'Hulk', nemesis: null },
+  { id: 16, name: 'Thor', nemesis: null },
+  { id: 17, name: 'Captain America', nemesis: null },
+  { id: 18, name: 'Doctor Strange', nemesis: null },
+  { id: 19, name: 'Deadpool', nemesis: null },
+  { id: 20, name: 'Black Panther', nemesis: null },
 ];

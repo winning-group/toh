@@ -3,8 +3,26 @@
   <div><span>id: </span>{{hero.id}}</div>
   <div>
     <label>name:
-      <input [(ngModel)]="hero.name" placeholder="name" />
+      <input
+        [(ngModel)]="hero.name"
+        placeholder="name"
+      />
     </label>
+  </div>
+  <div>
+    <select
+      class="form-control"
+      id="nemesis"
+      [(ngModel)]="hero.nemesis"
+    >
+      <option value="null">None</option>
+      <option
+        *ngFor="let villain of villains"
+        [value]="villain.id"
+      >
+        {{villain.name}}
+      </option>
+    </select>
   </div>
   <button (click)="goBack()">go back</button>
   <button (click)="save()">save</button>
