@@ -1,9 +1,6 @@
 app-messages {
   .messages {
-    padding: {
-      left: $global-gutter-m;
-      right: $global-gutter-m;
-    }
+    padding: $global-gutter-m;
   }
 
   body, input[text], button {

@@ -21,6 +21,8 @@ app-dashboard {
       justify-content: center;
       background-color: $navy-light;
       background-position: top center;
+      background-repeat: no-repeat;
+      background-size: cover;
       text-decoration: none;
 
       @include mediaLarge() {
