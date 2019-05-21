@@ -9,29 +9,29 @@ import { Hero } from 'shared/models';
 export class InMemoryDataService implements InMemoryDbService {
   createDb() {
     const heroes = [
-      { id: 11, name: 'Iron Man', nemesis: null },
-      { id: 12, name: 'Wolverine', nemesis: null },
-      { id: 13, name: 'Spider-Man', nemesis: null },
-      { id: 14, name: 'Daredevil', nemesis: null },
-      { id: 15, name: 'Hulk', nemesis: null },
-      { id: 16, name: 'Thor', nemesis: null },
-      { id: 17, name: 'Captain America', nemesis: null },
-      { id: 18, name: 'Doctor Strange', nemesis: null },
-      { id: 19, name: 'Deadpool', nemesis: null },
-      { id: 20, name: 'Black Panther', nemesis: null },
+      { id: 11, name: 'spider-man', nemesis: null },
+      { id: 12, name: 'iron-man', nemesis: null },
+      { id: 13, name: 'wolverine', nemesis: null },
+      { id: 14, name: 'daredevil', nemesis: null },
+      { id: 15, name: 'hulk', nemesis: null },
+      { id: 16, name: 'thor', nemesis: null },
+      { id: 17, name: 'captain-america', nemesis: null },
+      { id: 18, name: 'doctor-strange', nemesis: null },
+      { id: 19, name: 'deadpool', nemesis: null },
+      { id: 20, name: 'black-panther', nemesis: null },
     ];
 
     const villains = [
-      { id: 11, name: 'Magneto' },
-      { id: 12, name: 'Ultron' },
-      { id: 13, name: 'Thanos' },
-      { id: 14, name: 'Venom' },
-      { id: 15, name: 'Dormammu' },
-      { id: 16, name: 'Doctor Doom' },
-      { id: 17, name: 'Red Skull' },
-      { id: 18, name: 'Loki' },
-      { id: 19, name: 'Apocalypse' },
-      { id: 20, name: 'Carnage' },
+      { id: 11, name: 'magneto' },
+      { id: 12, name: 'ultron' },
+      { id: 13, name: 'thanos' },
+      { id: 14, name: 'venom' },
+      { id: 15, name: 'dormammu' },
+      { id: 16, name: 'doctor-doom' },
+      { id: 17, name: 'red-skull' },
+      { id: 18, name: 'loki' },
+      { id: 19, name: 'apocalypse' },
+      { id: 20, name: 'carnage' },
     ];
 
     return {

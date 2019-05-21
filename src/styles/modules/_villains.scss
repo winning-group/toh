@@ -1,4 +1,14 @@
 app-villains {
+  display: block;
+  padding: {
+    left: $global-gutter-m;
+    right: $global-gutter-m;
+  }
+
+  h2 {
+    font-family: $font-family-title;
+  }
+
   .villains {
     margin: 0 0 2em 0;
     list-style-type: none;

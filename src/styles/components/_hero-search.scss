@@ -1,6 +1,23 @@
 app-hero-search {
-  /* HeroSearch private styles */
+  .search {
+    padding: {
+      left: $global-margin-m;
+      right: $global-margin-m;
+    }
+    text-align: center;
+
+    &__title {
+      font-family: $font-family-title;
+    }
+
+    &__box {
+    }
+  }
   .search-result {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
     li {
       border-bottom: 1px solid gray;
       border-left: 1px solid gray;
@@ -9,6 +26,7 @@ app-hero-search {
       height: 16px;
       padding: 5px;
       background-color: white;
+      font-family: $font-family-title;
       cursor: pointer;
       list-style-type: none;
 

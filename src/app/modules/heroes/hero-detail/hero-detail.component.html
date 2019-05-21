@@ -10,19 +10,21 @@
     </label>
   </div>
   <div>
-    <select
-      class="form-control"
-      id="nemesis"
-      [(ngModel)]="hero.nemesis"
-    >
-      <option value="null">None</option>
-      <option
-        *ngFor="let villain of villains"
-        [value]="villain.id"
+    <label>nemesis:
+      <select
+        class="form-control"
+        id="nemesis"
+        [(ngModel)]="hero.nemesis"
       >
-        {{villain.name}}
-      </option>
-    </select>
+        <option value="null">None</option>
+        <option
+          *ngFor="let villain of villains"
+          [value]="villain.id"
+        >
+          {{villain.name}}
+        </option>
+      </select>
+    </label>
   </div>
   <button (click)="goBack()">go back</button>
   <button (click)="save()">save</button>

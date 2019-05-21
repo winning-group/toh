@@ -1,5 +1,14 @@
 app-heroes {
-  /* HeroListComponent's private CSS styles */
+  display: block;
+  padding: {
+    left: $global-gutter-m;
+    right: $global-gutter-m;
+  }
+
+  h2 {
+    font-family: $font-family-title;
+  }
+
   .heroes {
     margin: 0 0 2em 0;
     list-style-type: none;

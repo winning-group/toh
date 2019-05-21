@@ -1,5 +1,14 @@
-app-hero-detail {
-  /* HeroDetailComponent's private CSS styles */
+app-hero-detail, app-villain-detail {
+  display: block;
+  padding: {
+    left: $global-gutter-m;
+    right: $global-gutter-m;
+  }
+
+  h2 {
+    font-family: $font-family-title;
+  }
+
   label {
     display: inline-block;
     width: 3em;
@@ -19,7 +28,8 @@ app-hero-detail {
     border: none;
     padding: 5px 10px;
     border-radius: 4px;
-    cursor: pointer; cursor: hand;
+    cursor: pointer;
+    cursor: hand;
   }
   button:hover {
     background-color: #cfd8dc;
