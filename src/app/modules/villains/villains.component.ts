@@ -2,10 +2,17 @@ import {
   Component,
   OnInit,
 } from '@angular/core';
+import { combineLatest } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
-import { VillainService } from 'core/services';
-import { Villain } from 'shared/models';
+import {
+  HeroService,
+  VillainService,
+} from 'core/services';
+import {
+  Hero,
+  Villain,
+} from 'shared/models';
 import { Unsubscribe } from 'shared/modules';
 
 @Component({
@@ -15,12 +22,28 @@ import { Unsubscribe } from 'shared/modules';
 export class VillainsComponent extends Unsubscribe implements OnInit {
   villains: Villain[];
 
-  constructor(private villainService: VillainService) {
+  constructor(
+    private heroService: HeroService,
+    private villainService: VillainService,
+  ) {
     super();
   }
 
   ngOnInit() {
-    this.getVillains();
+    combineLatest([
+      this.villainService.getVillains(),
+      this.heroService.getHeroes(),
+    ])
+      .pipe(takeUntil(this.unsubscribe))
+      .subscribe(([villains, heroes]) => {
+        this.villains = villains.map((villain: Villain): Villain => {
+          const assigned = heroes.filter((hero: Hero) => hero.nemesis === villain.id);
+
+          return assigned.length > 0
+            ? { ...villain, disabled: true }
+            : { ...villain, disabled: false };
+        });
+      });
   }
 
   getVillains(): void {

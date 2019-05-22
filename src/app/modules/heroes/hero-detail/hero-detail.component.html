@@ -15,6 +15,7 @@
         class="form-control"
         id="nemesis"
         [(ngModel)]="hero.nemesis"
+        (ngModelChange)="onChangeSelection($event)"
       >
         <option value="null">None</option>
         <option
