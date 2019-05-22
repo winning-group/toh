@@ -58,4 +58,8 @@ export class HeroDetailComponent extends Unsubscribe implements OnInit {
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(() => this.goBack());
   }
+
+  onChangeSelection(id: string) {
+    this.hero.nemesis = Number(id);
+  }
 }
