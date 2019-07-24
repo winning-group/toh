@@ -4,6 +4,9 @@ import { Location } from '@angular/common';
 
 import { Hero }         from '../hero';
 import { HeroService }  from '../hero.service';
+import { Villain } from '../villain';
+import { VillainService } from '../villain.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-hero-detail',
@@ -12,15 +15,22 @@ import { HeroService }  from '../hero.service';
 })
 export class HeroDetailComponent implements OnInit {
   @Input() hero: Hero;
-
+  villains$: Observable<Villain[]>;
+  
   constructor(
     private route: ActivatedRoute,
     private heroService: HeroService,
+    private villainService: VillainService,
     private location: Location
   ) {}
 
   ngOnInit(): void {
+    this.getVillainOptions();
     this.getHero();
+  }
+
+  getVillainOptions(): void {
+    this.villains$ = this.villainService.getList();
   }
 
   getHero(): void {

@@ -63,3 +63,95 @@ nav a.active {
 * {
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* data list component CSS styles */
+.data-list {
+  margin: 0 0 2em 0;
+  list-style-type: none;
+  padding: 0;
+  width: 15em;
+}
+.data-list li {
+  position: relative;
+  cursor: pointer;
+  background-color: #EEE;
+  margin: .5em;
+  padding: .3em 0;
+  height: 1.6em;
+  border-radius: 4px;
+}
+
+.data-list li:hover {
+  color: #607D8B;
+  background-color: #DDD;
+  left: .1em;
+}
+
+.data-list a {
+  color: #888;
+  text-decoration: none;
+  position: relative;
+  display: block;
+  width: 250px;
+}
+
+.data-list a:hover {
+  color:#607D8B;
+}
+
+.data-list .badge {
+  display: inline-block;
+  font-size: small;
+  color: white;
+  padding: 0.8em 0.7em 0 0.7em;
+  background-color: #607D8B;
+  line-height: 1em;
+  position: relative;
+  left: -1px;
+  top: -4px;
+  height: 1.8em;
+  min-width: 16px;
+  text-align: right;
+  margin-right: .8em;
+  border-radius: 4px 0 0 4px;
+}
+
+.data-list button.delete {
+  position: relative;
+  left: 194px;
+  top: -32px;
+  background-color: gray !important;
+  color: white;
+}
+
+/* detail component CSS styles */
+.detail-container label {
+  display: inline-block;
+  width: 3em;
+  margin: .5em 0;
+  color: #607D8B;
+  font-weight: bold;
+}
+.detail-container input, 
+.detail-container select {
+  height: 2em;
+  font-size: 1em;
+  padding-left: .4em;
+}
+.detail-container button {
+  margin-top: 20px;
+  font-family: Arial;
+  background-color: #eee;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer; cursor: hand;
+}
+.detail-container button:hover {
+  background-color: #cfd8dc;
+}
+.detail-container button:disabled {
+  background-color: #eee;
+  color: #ccc;
+  cursor: auto;
+}
