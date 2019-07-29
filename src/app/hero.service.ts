@@ -6,6 +6,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 
 import { Hero } from './hero';
 import { MessageService } from './message.service';
+import { Nemesis } from './nemesis';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -15,6 +16,7 @@ const httpOptions = {
 export class HeroService {
 
   private heroesUrl = 'api/heroes';  // URL to web api
+  private nemesisUrl = 'api/nemesis';  // URL to web api
 
   constructor(
     private http: HttpClient,
@@ -26,6 +28,15 @@ export class HeroService {
       .pipe(
         tap(_ => this.log('fetched heroes')),
         catchError(this.handleError<Hero[]>('getHeroes', []))
+      );
+  }
+
+  /** GET Nemesis from the server */
+  getNemesis (): Observable<Nemesis[]> {
+    return this.http.get<Nemesis[]>(this.nemesisUrl)
+      .pipe(
+        tap(_ => this.log('fetched Nemesis')),
+        catchError(this.handleError<Nemesis[]>('getNemesis', []))
       );
   }
 
