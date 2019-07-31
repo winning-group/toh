@@ -15,6 +15,13 @@ import { HeroesComponent }      from './heroes/heroes.component';
 import { HeroSearchComponent }  from './hero-search/hero-search.component';
 import { MessagesComponent }    from './messages/messages.component';
 
+import {
+  VillainDetailComponent, VillainsComponent, 
+} from './villains';
+import {
+  CardContentComponent, ListHeaderComponent
+} from './shared';
+
 @NgModule({
   imports: [
     BrowserModule,
@@ -35,7 +42,11 @@ import { MessagesComponent }    from './messages/messages.component';
     HeroesComponent,
     HeroDetailComponent,
     MessagesComponent,
-    HeroSearchComponent
+    HeroSearchComponent,
+    VillainDetailComponent,
+    VillainsComponent,
+    CardContentComponent,
+    ListHeaderComponent
   ],
   bootstrap: [ AppComponent ]
 })

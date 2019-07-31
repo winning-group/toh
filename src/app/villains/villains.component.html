@@ -1,0 +1,20 @@
+<h2>My Villains</h2>
+
+<div>
+  <label style="margin-right:1rem">Villain name:
+    <input #villainName />
+  </label>
+  <button (click)="add(villainName.value); villainName.value=''" style="padding:0.2rem 2rem">
+    Add
+  </button>
+</div>
+
+<ul class="villains">
+  <li *ngFor="let v of villains;index as $index">
+    <a routerLink="/villain-detail" (click)="select(v)">
+      <span class="badge">{{v.id}}</span> {{v.name}}
+    </a>
+    <button class="delete" title="delete villain"
+      (click)="deleteVillain($index)">x</button>
+  </li>
+</ul>

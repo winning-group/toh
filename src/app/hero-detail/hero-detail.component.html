@@ -6,6 +6,12 @@
       <input [(ngModel)]="hero.name" placeholder="name"/>
     </label>
   </div>
+  <br/>
+  <h3>Select a nemesis</h3>
+  <select (click)="selectNemesis($event)">
+  	<option *ngFor="let v of _vServ.villianList" [value]="v.id">{{v.name}}</option>
+  </select>
+  <br/>
   <button (click)="goBack()">go back</button>
   <button (click)="save()">save</button>
 </div>

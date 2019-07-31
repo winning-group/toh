@@ -1,0 +1,15 @@
+<h2>Village</h2>
+<p>
+  <span style="margin:2rem;font-size:1.5rem;font-weight:bold">ID:</span>
+  <span style="margin:2rem;font-size:1.5rem;">{{editingVillain.id}}</span>
+</p>
+<div>
+  <label class="label col-4" for="name" style="margin:2rem;font-size:1.5rem;font-weight:bold">
+    name
+  </label>
+  <input name="name" class="input col-4" type="text" style="font-size:1.5rem" [(ngModel)]="editingVillain.name" placeholder="e.g. Colleen" />
+</div>
+<br/><br/>
+<button class="link" aria-label="Save" (clicked)="saveVillain()" style="padding: 1rem 2rem">Save</button>
+<a routerLink="/villains" style="margin-left:1rem"> &lt;&lt;&nbsp;Cancel</a>
+

@@ -2,8 +2,9 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
-import { Hero }         from '../hero';
-import { HeroService }  from '../hero.service';
+import { Hero }           from '../hero';
+import { HeroService }    from '../hero.service';
+import { VillainService } from '../villains';
 
 @Component({
   selector: 'app-hero-detail',
@@ -16,7 +17,8 @@ export class HeroDetailComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private heroService: HeroService,
-    private location: Location
+    private location: Location,
+    private _vServ: VillainService
   ) {}
 
   ngOnInit(): void {
@@ -33,8 +35,14 @@ export class HeroDetailComponent implements OnInit {
     this.location.back();
   }
 
- save(): void {
+  save(): void {
     this.heroService.updateHero(this.hero)
       .subscribe(() => this.goBack());
+  }
+
+  selectNemesis(inEvent){
+    console.log("Selected a nemesis", inEvent);
+    let tmpVillainObj = this._vServ.villianList.filter(x=>x.id===inEvent.target.value)[0];
+    this.hero.nemesis = tmpVillainObj?tmpVillainObj['name']:"Anonymous";
   }
 }
