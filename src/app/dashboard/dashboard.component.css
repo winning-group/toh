@@ -37,6 +37,9 @@ h4 {
   background-color: #607D8B;
   border-radius: 2px;
 }
+.module.villain {
+  background-color: #dd7Dff;
+}
 .module:hover {
   background-color: #EEE;
   cursor: pointer;
@@ -44,6 +47,7 @@ h4 {
 }
 .grid-pad {
   padding: 10px 0;
+  overflow: hidden;
 }
 .grid-pad > [class*='col-']:last-of-type {
   padding-right: 20px;

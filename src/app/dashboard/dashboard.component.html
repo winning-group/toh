@@ -7,5 +7,14 @@
     </div>
   </a>
 </div>
-
 <app-hero-search></app-hero-search>
+
+<h3>Villains</h3>
+<div class="grid grid-pad">
+  <a *ngFor="let villain of villains" class="col-1-4"
+      routerLink="/detail/{{villain.id}}">
+    <div class="module villain">
+      <h4>{{villain.name}}</h4>
+    </div>
+  </a>
+</div>
