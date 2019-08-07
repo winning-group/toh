@@ -1,0 +1,32 @@
+<div *ngIf="hero">
+  <h2>{{hero.name | uppercase}} Details</h2>
+  <div><span>id: </span>{{hero.id}}</div>
+  <div>
+    <label>name:
+      <input
+        [(ngModel)]="hero.name"
+        placeholder="name"
+      />
+    </label>
+  </div>
+  <div>
+    <label>nemesis:
+      <select
+        class="form-control"
+        id="nemesis"
+        [(ngModel)]="hero.nemesis"
+        (ngModelChange)="onChangeSelection($event)"
+      >
+        <option value="null">None</option>
+        <option
+          *ngFor="let villain of villains"
+          [value]="villain.id"
+        >
+          {{villain.name}}
+        </option>
+      </select>
+    </label>
+  </div>
+  <button (click)="goBack()">go back</button>
+  <button (click)="save()">save</button>
+</div>
