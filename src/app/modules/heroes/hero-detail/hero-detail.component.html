@@ -27,6 +27,19 @@
       </select>
     </label>
   </div>
+  <div>
+    <label>superpowers</label>
+    <ul>
+      <li *ngFor="let superpower of hero.superpowers">{{superpower.name}}</li>
+    </ul>
+  </div>
+  <div>
+    <span>Give this hero a superpower</span>
+    <select id="add-superpower" [(ngModel)]="heroSuperpower">
+      <option value=""></option>
+      <option *ngFor="let superpower of superpowers" [value]="superpower.id">{{superpower.name}}</option>
+    </select>
+  </div>
   <button (click)="goBack()">go back</button>
   <button (click)="save()">save</button>
 </div>
