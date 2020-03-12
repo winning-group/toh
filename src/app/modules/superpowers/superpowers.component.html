@@ -1,0 +1,19 @@
+<h2>My Superpowers</h2>
+
+<div>
+  <label>Superpower name:
+    <input #superpowerName />
+  </label>
+  <!-- (click) passes input value to add() and then clears the input -->
+  <button (click)="add(superpowerName.value); superpowerName.value=''">
+    add
+  </button>
+</div>
+
+<ul>
+  <li *ngFor="let superpower of superpowers">
+    <div>
+      <span class="badge">{{superpower.id}}</span> {{superpower.name}}
+    </div>
+  </li>
+</ul>

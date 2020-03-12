@@ -17,6 +17,8 @@ import {
   Villain,
 } from 'shared/models';
 import { Unsubscribe } from 'shared/modules';
+import { SuperpowerService } from 'app/core/services/superpowers/superpower.service';
+import { Superpower } from 'app/shared/models/superpower';
 
 @Component({
   selector: 'app-hero-detail',
@@ -25,11 +27,14 @@ import { Unsubscribe } from 'shared/modules';
 export class HeroDetailComponent extends Unsubscribe implements OnInit {
   @Input() hero: Hero;
   villains: Villain[];
+  superpowers: Superpower[];
+  heroSuperpower: number;
 
   constructor(
     private route: ActivatedRoute,
     private heroService: HeroService,
     private villainService: VillainService,
+    private superpowersService: SuperpowerService,
     private location: Location,
   ) {
     super();
@@ -41,11 +46,13 @@ export class HeroDetailComponent extends Unsubscribe implements OnInit {
     combineLatest([
       this.heroService.getHero(id),
       this.villainService.getVillains(),
+      this.superpowersService.getSuperpowers()
     ])
       .pipe(takeUntil(this.unsubscribe))
-      .subscribe(([hero, villains]) => {
+      .subscribe(([hero, villains, superpowers]) => {
         this.hero = hero;
         this.villains = villains;
+        this.superpowers = superpowers;
       });
   }
 
@@ -54,6 +61,11 @@ export class HeroDetailComponent extends Unsubscribe implements OnInit {
   }
 
   save(): void {
+    if (this.heroSuperpower) {
+      const selectedPower = this.superpowers.find(power => power.id == this.heroSuperpower)
+      this.hero.superpowers.push(selectedPower);
+    }
+
     this.heroService.updateHero(this.hero)
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(() => this.goBack());
