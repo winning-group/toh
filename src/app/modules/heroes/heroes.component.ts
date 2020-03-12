@@ -34,7 +34,7 @@ export class HeroesComponent extends Unsubscribe implements OnInit {
     if (!name) {
       return;
     }
-    this.heroService.addHero({ name } as Hero)
+    this.heroService.addHero({ name, superpowers: [] } as Hero)
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(hero => {
         this.heroes.push(hero);

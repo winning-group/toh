@@ -9,16 +9,16 @@ import { Hero } from 'shared/models';
 export class InMemoryDataService implements InMemoryDbService {
   createDb() {
     const heroes = [
-      { id: 11, name: 'spider-man', nemesis: null },
-      { id: 12, name: 'iron-man', nemesis: null },
-      { id: 13, name: 'wolverine', nemesis: null },
-      { id: 14, name: 'daredevil', nemesis: null },
-      { id: 15, name: 'hulk', nemesis: null },
-      { id: 16, name: 'thor', nemesis: null },
-      { id: 17, name: 'captain-america', nemesis: null },
-      { id: 18, name: 'doctor-strange', nemesis: null },
-      { id: 19, name: 'deadpool', nemesis: null },
-      { id: 20, name: 'black-panther', nemesis: null },
+      { id: 11, name: 'spider-man', nemesis: null, superpowers: [] },
+      { id: 12, name: 'iron-man', nemesis: null, superpowers: [] },
+      { id: 13, name: 'wolverine', nemesis: null, superpowers: [] },
+      { id: 14, name: 'daredevil', nemesis: null, superpowers: [] },
+      { id: 15, name: 'hulk', nemesis: null, superpowers: [{ id: 12, name: 'Smash' }] },
+      { id: 16, name: 'thor', nemesis: null, superpowers: [] },
+      { id: 17, name: 'captain-america', nemesis: null, superpowers: [] },
+      { id: 18, name: 'doctor-strange', nemesis: null, superpowers: [] },
+      { id: 19, name: 'deadpool', nemesis: null, superpowers: [] },
+      { id: 20, name: 'black-panther', nemesis: null, superpowers: [] },
     ];
 
     const villains = [
@@ -34,9 +34,15 @@ export class InMemoryDataService implements InMemoryDbService {
       { id: 20, name: 'carnage' },
     ];
 
+    const superpowers = [
+      { id: 11, name: 'Fly' },
+      { id: 12, name: 'Smash' }
+    ];
+
     return {
       heroes,
       villains,
+      superpowers
     };
   }
 
