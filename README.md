@@ -16,19 +16,33 @@ npm start
 3. Notify us once responses are complete and pull requests are submitted.
 
 
+## Table of contents
+
+## [Overview of adding NgRx to the app](#overview-of-adding-NgRx-to-the-app)
+## [Getting started with NgRx](#getting-started-with-NgRx)
+## [Setting up NgRx](#setting-up-NgRx)
+## [Directory structure](#directory-structure)
+## [Creating actions](#creating-actions)
+## [Adding reducers](#adding-reducers)
+## [NgRx version 9 BREAKING CHANGES](#ngRx-version-9-BREAKING-CHANGES)
+## [Router state](#router-state)
+## [Frozen state](#frozen-state)
+
+
+
 ## Overview of adding NgRx to the app
 
-I went pretty slowly with this task.  
+The first step was to fixe the unit tests.  The models had not been updated since super powers were added.
 
-First I fixed the unit tests because the models had not been updated since super powers were added.  
+Then I looked at using Nrwl to generate the code.  However, it appears that NgRx has changed a bit over the past year.  For example, class-based action creators have been replaced with the createAction and props, so I wanted to get familiar with this before imposing outdated functionality on the app.  Also, the Angular CLI has good scaffolding schematics these days, so it will be good to see what that offers us out of the box.
 
-Then I looked at using Nrwl to generate the code.  However, it appears that NgRx has changed a bit over the past year, so I went deeper into a basic NgRx solution based on the currently recommended NgRx methods.
+Then I had to decide what slice of the app state to begin with.  The hero model or selected hero seemed like a good start.  But the hero selection is using the router, and NgRx has specific tools for working with the Angular router.
 
-For example, class-based action creators have been replaced with the createAction and props, so I wanted to get familiar with this before imposing outdated functionality on the app.  Also, the Angular CLI has good scaffolding schematics these days, so it will be good to see what that offers us out of the box.
+With the router state in action now, route changes can be captured and replayed with the Redux dev tools.
 
-The PR shouldn't contain a legacy NgRx solution, so I think just getting up to speed with the basics of how to do it for 2020 is an important part of this task.
+To do is to decide on a proper directory structure, and index files for the store functions.  Implement some other actions.  Write some unit or e2e tests to take advantage of the new state management tools.
 
-Then I had to decide what slice of the app state to begin with.  The hero model or selected hero seemed like a good start.  But the hero selection is using the router, and NgRx has specific tools for working with the Angular router.  It's not the easiest thing to get started with, but should work out OK as a first app state.  This is something that has to scale, so the first step is just the first of many.
+
 
 
 ## Getting started with NgRx
@@ -48,7 +62,7 @@ Do we need @ngrx/store-devtools?
 
 
 
-### Setup
+## Setting up NgRx
 
 One way to add NgRx to the app is this:
 ```
@@ -89,9 +103,14 @@ ng generate container starships/ship-detail --state store/reducers/index.ts --st
 But currently, with NgRx 9 depending on Angular 9, shcematics are not there so we will have to do everything by hand.  Not such a bad thing so that everything that is needed if more clear.  Less magic, more learning.
 
 
+Other things that will need to be added to the app include:
+```
+npm install @ngrx/store-devtools --save
+npm install @ngrx/effects --save
+```
 
 
-### Directory structure
+## Directory structure
 
 Where to put the state code?
 
@@ -132,7 +151,7 @@ This might suite the curret application better.  No need to rush into a director
 
 
 
-### Creating some actions
+## Creating actions
 
 The actions are under the "architecture" link in the [official guide](https://ngrx.io/guide/store/actions).  It says they are just simple interfaces.
 
@@ -241,7 +260,7 @@ Actions include:
 As I understand it, there are no actions needed then to configure in an actions file, as the router stands in for that.  Then it would just be about wiring those actions into a reducer.
 
 
-### Add reducers
+## Adding reducers
 
 This is step 3 in the [official NgRx docs](https://ngrx.io/guide/store/install).  The process looks something like this:
 
@@ -269,7 +288,7 @@ export const categoryReducers = (
     }
 ```
 
-In the [sectiono on reducers in the official docs](https://ngrx.io/guide/store/reducers), first there is a state interface from the example docs baseball example:
+In the [section on reducers in the official docs](https://ngrx.io/guide/store/reducers), first there is a state interface from the example docs baseball example:
 
 ```TypeScript
 export interface State {
@@ -340,7 +359,7 @@ Just how new is version 9?  [The changelog shows](https://github.com/ngrx/platfo
 That's basically when I started this challenge!  Of course 8.6.0 was released only about a month ago.  It might be a good idea right now to look at the breaking changes from 8 to 9 just so when looking at code we can get an idea of how things have changed.
 
 
-### NgRx version 9 BREAKING CHANGES
+## NgRx version 9 BREAKING CHANGES
 
 * router: The MinimalRouterStateSerializer is enabled by default.
 * effects: resubscribeOnError renamed to useEffectsErrorHandler in createEffect metadata
@@ -425,5 +444,73 @@ const heroReducer = createReducer(
 ``` 
 
 But remember how heroes get selected in the app?  Via a link to the detail page.  So what we need is the reducer example from the router section.
+
+
+## Router state
+
+We want to let the user to be able to share or bookmark particular heroes, such as Iron Man:
+```
+http://localhost:4200/heroes/12
+```
+
+This should lead directly to the any state such as the detail page.  
+
+We currently inject the router into the hero-detail.component. To avoid this we can use @ngrx/router-store.  But since we already have a kind of state in the route, do we really need this?
+
+I found this explaination of why it's a good idea:
+*Letting components to extract path / query params from navigation / router-state and then use it to select respective state slices and / or dispatch actions we end up with lot of code duplication between sibling components and unnecessary coupling between parent and children components where a child component may need a router param extracted by parent component along side its own.*
+
+The [solution mentioned here](https://medium.com/simars/ngrx-router-store-reduce-select-route-params-6baff607dd9) is to let the selectors, reducers and side-effects deal with the router and let components depend only the Store.
+
+This method has a nice reducer called merged-route.ts which gets all routing state data in one shot.
+
+But there is more than this.  A merged-route-serialzer.ts to provide a custom RouterStateSerializer<T> which gives us routing state in a form we like 
+```
+<T= MergedRoute>
+```
+
+But that's not all folks!  We also need a module included in the root module: ngrx-router.module.ts.
+
+That's a lot of boiler plate code needed just for an article.  Will this articule be updated with the next major release of NgRx?  Are there hidden bugs that will be difficult to debug?  Is this a standard approach?  It's questions like this that should give a lead developer pause when jumping into a solution for something so all-encompasing as the routing of an app.
+
+Currently, the router state is working.  You can use the dev tools to replay all the route changes and all the info about the changes is available via the merged route class.
+
+The reducer is called hero.reducer, but should be renamed router.reducer so that hero.reducer can be used for hero actions.  I'm going to follow the model of the scoreboard reducer in [the official docs](https://ngrx.io/guide/store/reducers) to get started with those next.  It needs to implement the hero actions which are just sketched out for now.
+
+For the user, nothing has changed of course, but we now have a functioning router state as a starting point.  We now have
+Serializability
+By normalizing state changes and passing them through observables, NgRx provides serializability and ensures state is predictably stored. This enables to save the state to an external storage, for example, localStorage.
+
+Devs can now inspect, download, upload, and dispatch actions, all from the Store Devtools.
+
+Here are some other benefits of using NgRx router-state library.
+
+The router functionality is encapsulation and any interaction with external resources side effects, like network requests, web socket and any business logic can be isolated from the UI. This isolation allows for more pure and simple components, and keep the single responsibility principle.
+
+The Store is built on a single immutable data state and can be accessed by many components and services.  State that is persisted and rehydrated so that state that needs to be available when re-entering routes can be accomplished.  State can be retrieved with a side-effect and can be impacted by actions from other sources.
+
+
+
+## Frozen state
+
+I found an interesting issue when trying out some of the code from [this blog](https://timdeschryver.dev/blog/managing-different-slices-of-the-same-ngrx-state) froze the app!
+
+These lines of code in the heroes-routing.module make the app un-responsive:
+```
+   StoreModule.forFeature(routerStateKey, routerReducer),
+    StoreRouterConnectingModule.forRoot({
+      serializer: ParamsSerializer,
+    })
+```
+
+In the console, messages like this show up:
+```
+common.js:458 Throttling navigation to prevent the browser from hanging. See https://crbug.com/882238. Command line switch --disable-ipc-flooding-protection can be used to bypass the protection
+```
+
+But the app tab wont close or respond, and Chrome refuses to be closed until the task manager kills the process.
+
+The sample code from this article included a params-serializer class which is a custom serializer that only serializes the parameters and query parameters for all route levels, and that's all we need.  The stated reason for this is that there are two serializers built in the @ngrx/router-store.  The DefaultRouterStateSerializer and a MinimalRouterStateSerializer. Both serializers serializing too much data so a simple version is created that only uses the parameter of the URI.
+
 
 

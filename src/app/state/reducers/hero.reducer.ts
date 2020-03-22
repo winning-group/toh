@@ -1,4 +1,5 @@
 import * as fromRouter from "@ngrx/router-store";
+import { Action, createReducer, on } from '@ngrx/store';
 import { createFeatureSelector, createSelector } from "@ngrx/store";
 
 export interface State {
@@ -16,7 +17,7 @@ const {
 } = fromRouter.getSelectors(selectRouter);
 
 export const selectSelectedHeroId = selectQueryParam("id");
-export const selectCar = createSelector(
+export const selectHero = createSelector(
   selectSelectedHeroId,
   (heroes, selectedId) => heroes[selectedId]
 );
