@@ -1,5 +1,5 @@
 <div id="search-component" class="search">
-  <h2 class="search__title">Hero Search</h2>
+  <h2 class="search__title">Character Search</h2>
   <input
     #searchBox
     id="search-box"
@@ -7,9 +7,11 @@
     (input)="search(searchBox.value)"
   />
   <ul class="search-result">
-    <li *ngFor="let hero of heroes$ | async">
-      <a routerLink="/heroes/{{hero.id}}">
-        {{hero.name}}
+    <li *ngFor="let character of characters$ | async">
+      <!-- TODO: we need to either if condition the type of the character
+       or setup a base url for heroes and villians to able to correctly link characters to their detail page-->
+      <a routerLink="/heroes/{{character.id}}">
+        {{character.name}}
       </a>
     </li>
   </ul>

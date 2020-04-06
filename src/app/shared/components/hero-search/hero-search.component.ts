@@ -5,25 +5,31 @@ import {
 import {
   Observable,
   Subject,
+  combineLatest
 } from 'rxjs';
 import {
   debounceTime,
   distinctUntilChanged,
   switchMap,
+  mergeMap,
 } from 'rxjs/operators';
 
-import { HeroService } from 'core/services';
-import { Hero } from 'shared/models';
+import { HeroService, VillainService } from 'core/services';
+import { Hero, Villain } from 'shared/models';
 
 @Component({
   selector: 'app-hero-search',
   templateUrl: './hero-search.component.html',
 })
 export class HeroSearchComponent implements OnInit {
-  heroes$: Observable<Hero[]>;
+  characters$: Observable<(Hero | Villain)[]>;
   private searchTerms = new Subject<string>();
 
-  constructor(private heroService: HeroService) {
+
+  constructor(
+    private heroService: HeroService,
+    private villainService: VillainService
+  ) {
   }
 
   // Push a search term into the observable stream.
@@ -32,7 +38,7 @@ export class HeroSearchComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.heroes$ = this.searchTerms.pipe(
+    this.characters$ = this.searchTerms.pipe(
       // wait 300ms after each keystroke before considering the term
       debounceTime(300),
 
@@ -40,7 +46,22 @@ export class HeroSearchComponent implements OnInit {
       distinctUntilChanged(),
 
       // switch to new search observable each time the term changes
-      switchMap((term: string) => this.heroService.searchHeroes(term)),
+      switchMap((term: string) => this.loadResults(term))
     );
   }
+
+  loadResults(term: string): Observable<(Hero | Villain)[]> {
+    return combineLatest([
+      this.heroService.searchHeroes(term),
+      this.villainService.searchVillains(term),
+    ]).pipe(
+      // Here, combineLatest is returning an array of Observables of Villain[] | Hero[]
+      // and we need to flat those arrays into one with using a map and a reduce function
+      // bit of functional programming with using higher order functions here! : )
+      mergeMap(arr => {
+        return [ arr.reduce((acc, cur) => (acc as any).concat(cur) )];
+      })
+    );
+}
+
 }

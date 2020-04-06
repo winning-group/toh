@@ -1,3 +1,4 @@
+$tile-height: 550px;
 app-dashboard {
   .dashboard {
     &__title {
@@ -10,24 +11,32 @@ app-dashboard {
     }
 
     &__grid {
-      @include mediaLarge() {
-        display: flex;
-      }
+      display: flex;
+      flex-flow: row wrap;
+      justify-content: flex-start;
+      margin: 0;
+      padding: 0;
     }
 
     &__item {
+      position: relative;
       display: flex;
-      align-items: center;
-      justify-content: center;
-      background-color: $navy-light;
-      background-position: top center;
-      background-repeat: no-repeat;
-      background-size: cover;
+      height: $tile-height;
+      background-color: $navy;
+      border: 1px solid $navy-light;
+      box-sizing: border-box;
+
       text-decoration: none;
 
-      @include mediaLarge() {
-        flex: 1;
-        height: 400px;
+      flex-basis: 100%;
+      @include media-breakpoint-up(md) {
+        flex-basis: 50%;
+      }
+      @include media-breakpoint-up(lg) {
+        flex-basis: 33.3%;
+      }
+      @include media-breakpoint-up(xl) {
+        flex-basis: 20%;
       }
     }
 
@@ -41,11 +50,13 @@ app-dashboard {
       background-color: rgba(0, 0, 0, 0.5);
       color: $white;
       font-family: $font-family-title;
-      font-size: 32px;
       text-align: center;
       box-sizing: border-box;
       cursor: pointer;
       transition: all 250ms ease-in-out;
+      h4 {
+        font-size: 32px;
+      }
 
       &:hover {
         background-color: rgba(255, 255, 255, 0.75);

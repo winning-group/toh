@@ -8,6 +8,8 @@ import {
   HeroSearchComponent,
   MessagesComponent,
   NavigationComponent,
+  HeroComponent,
+  VillainComponent
 } from './components';
 
 @NgModule({
@@ -15,6 +17,8 @@ import {
     HeroSearchComponent,
     MessagesComponent,
     NavigationComponent,
+    HeroComponent,
+    VillainComponent
   ],
   exports: [
     CommonModule,
@@ -23,6 +27,8 @@ import {
     HeroSearchComponent,
     MessagesComponent,
     NavigationComponent,
+    HeroComponent,
+    VillainComponent,
   ],
   imports: [
     CommonModule,
