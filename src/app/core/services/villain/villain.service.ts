@@ -47,6 +47,19 @@ export class VillainService {
     );
   }
 
+  /* GET villains whose name contains search term */
+  searchVillains(term: string): Observable<Villain[]> {
+    if (!term.trim()) {
+      // if not search term, return empty villain array.
+      return of([]);
+    }
+    return this.http.get<Villain[]>(`${this.villainsUrl}/?name=${term}`).pipe(
+      tap(_ => this.log(`found villains matching "${term}"`)),
+      catchError(this.handleError<Villain[]>('searchVillains', [])),
+    );
+  }
+
+
   //////// Save methods //////////
 
   /** POST: add a new villain to the server */

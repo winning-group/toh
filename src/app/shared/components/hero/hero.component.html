@@ -1,0 +1,15 @@
+<div class="root">
+  <a
+    class="link"
+    routerLink="{{ characterUrl }}"
+    [ngStyle]="{'background-image': 'url(' + characterImage + ')'}"
+  >
+    <div class="dashboard__module hero">
+      <h4>{{ characterName }}</h4>
+      <div class="superpowers">
+        <div class="superpower" *ngFor="let superpower of superpowers">{{superpower.name}}</div>
+      </div>
+    </div>
+
+  </a>
+</div>

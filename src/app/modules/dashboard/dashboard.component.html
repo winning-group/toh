@@ -1,14 +1,25 @@
-<h2 class="dashboard__title">Top Heroes</h2>
-<div class="dashboard__grid">
-  <a *ngFor="let hero of heroes"
-     class="col-1-4 dashboard__item"
-     routerLink="/heroes/{{hero.id}}"
-     [ngStyle]="{'background-image': 'url(assets/images/' + hero.name.toLowerCase() + '.jpg)'}"
-  >
-    <div class="dashboard__module hero">
-      <h4>{{hero.name}}</h4>
-    </div>
-  </a>
-</div>
+<section class="container-fluid">
+  <h2 class="dashboard__title">All Characters</h2>
 
-<app-hero-search></app-hero-search>
+  <ul class="dashboard__grid">
+    <li class="dashboard__item"
+      *ngFor="let character of characters"
+      [ngSwitch]="character.type">
+
+      <ng-container *ngSwitchCase="'hero'">
+        <app-hero [id]="character.id"></app-hero>
+      </ng-container>
+
+      <ng-container *ngSwitchCase="'villain'">
+        <app-villain [id]="character.id"></app-villain>
+      </ng-container>
+
+    </li>
+  </ul>
+
+  <!-- TODO: Error Handling -->
+  <!-- <span class="error-message" [innerHTML]="errorMessage$ | async"></span> -->
+
+  <app-hero-search></app-hero-search>
+
+</section>
