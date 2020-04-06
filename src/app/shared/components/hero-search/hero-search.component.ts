@@ -5,21 +5,13 @@ import {
 import {
   Observable,
   Subject,
-  combineLatest,
-  merge,
-  zip,
-  forkJoin,
-  Subscription,
+  combineLatest
 } from 'rxjs';
 import {
   debounceTime,
   distinctUntilChanged,
   switchMap,
-  mergeAll,
-  concatMap,
   mergeMap,
-  flatMap,
-  concat,
 } from 'rxjs/operators';
 
 import { HeroService, VillainService } from 'core/services';
@@ -30,7 +22,7 @@ import { Hero, Villain } from 'shared/models';
   templateUrl: './hero-search.component.html',
 })
 export class HeroSearchComponent implements OnInit {
-  characters$;
+  characters$: Observable<(Hero | Villain)[]>;
   private searchTerms = new Subject<string>();
 
 
@@ -58,16 +50,16 @@ export class HeroSearchComponent implements OnInit {
     );
   }
 
-  loadResults(term: string): Observable<any[]> {
+  loadResults(term: string): Observable<(Hero | Villain)[]> {
     return combineLatest([
-      this.villainService.searchVillains(term),
       this.heroService.searchHeroes(term),
+      this.villainService.searchVillains(term),
     ]).pipe(
       // Here, combineLatest is returning an array of Observables of Villain[] | Hero[]
       // and we need to flat those arrays into one with using a map and a reduce function
       // bit of functional programming with using higher order functions here! : )
       mergeMap(arr => {
-        return [ arr.reduce((acc, cur) => (acc as any).concat(cur) )]
+        return [ arr.reduce((acc, cur) => (acc as any).concat(cur) )];
       })
     );
 }
